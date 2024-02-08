@@ -1,0 +1,43 @@
+<!DOCTYPE html> <html> <head> <title>Bouncing Ball Animation</title> <style> #canvas { border: 1px solid black; } </style> </head> <body> <canvas id="canvas" width="400" height="400"></canvas>
+<script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    let x = canvas.width / 2;
+    let y = canvas.height - 30;
+    let radius = 10;
+    let speed = 3;
+    let dx = speed;
+    let dy = -speed;
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 4);
+        ctx.fillStyle = '#0035DD';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    function update() {
+        x += dx;
+        y += dy;
+
+        if (x + radius > canvas.width || x - radius < 0) {
+            dx = -dx;
+        }
+        if (y + radius > canvas.height || y - radius < 0) {
+            dy = -dy;
+        }
+    }
+
+    function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+    }
+
+    loop();
+</script>
+
+</body> </html>
